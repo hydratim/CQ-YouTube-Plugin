@@ -1,12 +1,19 @@
 kind: source
 spec:
-  name: "comics"
+  name: "youtube"
   registry: "grpc"
   path: "localhost:7777"
-  tables: ['*']
+#  tables: ["yt_country_metrics", "yt_channel_demographics", "yt_channel_metrics"]
+#  tables: ["*"]
+  tables: ["yt_video"]
   destinations: ["sqlite"]
   spec:
-    base_url: https://xkcd.com
+    concurrency: 1
+    access_token: ${YT_ACCESS_TOKEN}
+    channel_id: MINE
+    start_date: 2022-01-01
+    aggregate_unit: 1 # days
+    results_per_query: 20
 ---
 kind: destination
 spec:

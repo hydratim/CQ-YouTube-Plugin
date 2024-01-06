@@ -1,4 +1,5 @@
 import json
+import os
 from typing import List, Generator
 
 import structlog
@@ -10,11 +11,13 @@ from cloudquery.sdk.scheduler import Scheduler, TableResolver
 from plugin import tables
 from plugin.client import Client, Spec
 
-PLUGIN_NAME = "example"
+PLUGIN_NAME = "youtube"
 PLUGIN_VERSION = "1.0.0"  # {x-release-please-version}
 
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
-class ExamplePlugin(plugin.Plugin):
+
+class YouTubePlugin(plugin.Plugin):
     def __init__(self) -> None:
         super().__init__(PLUGIN_NAME, PLUGIN_VERSION)
         self._spec_json = None
@@ -39,7 +42,10 @@ class ExamplePlugin(plugin.Plugin):
 
     def get_tables(self, options: plugin.TableOptions) -> List[plugin.Table]:
         all_tables: List[plugin.Table] = [
-            tables.Items(),
+            tables.Videos(),
+            tables.ChannelMetrics(),
+            tables.CountryMetrics(),
+            tables.ChannelDemographics(),
         ]
 
         # set parent table relationships

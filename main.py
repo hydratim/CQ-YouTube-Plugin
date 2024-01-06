@@ -1,11 +1,11 @@
 import sys
 from cloudquery.sdk import serve
 
-from plugin import ExamplePlugin
+from plugin import YouTubePlugin
 
 
 def main():
-    p = ExamplePlugin()
+    p = YouTubePlugin()
     serve.PluginCommand(p).run(sys.argv[1:])
 
 
